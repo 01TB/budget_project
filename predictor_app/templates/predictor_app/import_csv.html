@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Import CSV Data{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Import Data from CSV</h1>
+<form method="post" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+    {% csrf_token %}
+    <div>
+        <label for="{{ form.model_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.model_type.label }}</label>
+        {{ form.model_type }}
+        {% if form.model_type.errors %}<p class="text-red-500 text-xs italic">{{ form.model_type.errors|first }}</p>{% endif %}
+    </div>
+    <div>
+        <label for="{{ form.csv_file.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.csv_file.label }}</label>
+        {{ form.csv_file }}
+        {% if form.csv_file.errors %}<p class="text-red-500 text-xs italic">{{ form.csv_file.errors|first }}</p>{% endif %}
+    </div>
+    <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">
+        Import CSV
+    </button>
+</form>
+
+<div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-md">
+    <h2 class="text-xl font-semibold mb-2 text-blue-700">CSV Structure Guide</h2>
+    
+    <h3 class="text-lg font-medium mt-4 mb-1 text-blue-600">For Towns:</h3>
+    <p class="text-sm text-gray-700">Columns: <code>name</code> (required), <code>latitude</code> (optional, float), <code>longitude</code> (optional, float)</p>
+    <pre class="bg-gray-100 p-2 rounded text-xs mt-1 overflow-x-auto">name,latitude,longitude

@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Predict Land Purchase Budget{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Predict Land Purchase Budget</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+        <form method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="{{ form.town_name_display.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.town_name_display.label }}</label>
+                {{ form.town_name_display }}
+                {{ form.town }} {# Hidden input for town ID #}
+                {% if form.town.errors %}<p class="text-red-500 text-xs italic">{{ form.town.errors|first }}</p>{% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.paper_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.paper_type.label }}</label>
+                {{ form.paper_type }}
+                {% if form.paper_type.errors %}<p class="text-red-500 text-xs italic">{{ form.paper_type.errors|first }}</p>{% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.access_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.access_type.label }}</label>
+                {{ form.access_type }}
+                {% if form.access_type.errors %}<p class="text-red-500 text-xs italic">{{ form.access_type.errors|first }}</p>{% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.area_sqm.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.area_sqm.label }}</label>
+                {{ form.area_sqm }}
+                {% if form.area_sqm.errors %}<p class="text-red-500 text-xs italic">{{ form.area_sqm.errors|first }}</p>{% endif %}
+            </div>
+
+            <div class="flex items-center">
+                {{ form.is_fenced }}
+                <label for="{{ form.is_fenced.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form.is_fenced.label }}</label>
+            </div>
+            <div class="flex items-center">
+                {{ form.is_ready_to_build }}
+                <label for="{{ form.is_ready_to_build.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form.is_ready_to_build.label }}</label>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Predict Budget
+            </button>
+        </form>
+
+        {% if predicted_price %}
+        <div class="mt-8 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md" role="alert">
+            <p class="font-bold">Predicted Land Purchase Budget:</p>
+             <p class="text-2xl">
+                {% if predicted_price == "Model not trained yet." %}
+                    {{ predicted_price }}
+                {% else %}
+                    ${{ predicted_price|floatformat:2 }}
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        <h2 class="text-xl font-semibold mb-2">Select Town on Map</h2>
+        <div id="map_land" class="w-full h-96 rounded-lg shadow-md border border-gray-300"></div> {# Different ID for this map #}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Map setup
+        const map = L.map('map_land').setView([0, 0], 2); // Use the new ID
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        let selectedMarker = null;
+        const townInputId = document.getElementById('land_town_id'); // Use the land form's town ID
+        const townNameDisplay = document.getElementById('land_town_name_display'); // Use land form's display
+
+        fetch("{{ towns_json_url }}") // Same URL for town data
+            .then(response => response.json())
+            .then(towns => {
+                if (towns.length > 0) {
+                    const firstTownWithCoords = towns.find(t => t.latitude && t.longitude);
+                    if (firstTownWithCoords) {
+                        map.setView([firstTownWithCoords.latitude, firstTownWithCoords.longitude], 6);
+                    }
+                }
+                towns.forEach(town => {
+                    if (town.latitude && town.longitude) {
+                        const marker = L.marker([town.latitude, town.longitude]).addTo(map);
+                        marker.bindPopup(`<b>${town.name}</b>`);
+                        marker.on('click', function () {
+                            if (selectedMarker) {
+                                selectedMarker.setIcon(new L.Icon.Default());
+                            }
+                            this.setIcon(new L.Icon.Default({ className: 'custom-selected-marker-land' }));
+                            selectedMarker = this;
+                            
+                            townInputId.value = town.id;
+                            townNameDisplay.value = town.name;
+                        });
+                    }
+                });
+            });
+    });
+</script>
+<style>
+    .custom-selected-marker-land { 
+        filter: hue-rotate(240deg) brightness(1.5); /* Makes it purplish and brighter */
+    }
+</style>
+{% endblock %}

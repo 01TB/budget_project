@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Rental Properties{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Rental Properties</h1>
+    <a href="{% url 'rentalproperty_new' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Add New Rental</a>
+</div>
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <table class="min-w-full leading-normal">
+        <thead>
+            <tr>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Type</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Town</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Access</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Rooms</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prop in properties %}
+            <tr>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ prop.get_property_type_display }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ prop.town.name }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ prop.get_access_type_display }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ prop.num_rooms }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${{ prop.price|floatformat:2 }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <a href="{% url 'rentalproperty_edit' prop.pk %}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+                    <a href="{% url 'rentalproperty_delete' prop.pk %}" class="text-red-600 hover:text-red-900">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center py-4">No rental properties found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

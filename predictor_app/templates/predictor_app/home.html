@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Budget Predictor{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-4xl font-bold mb-6">Welcome to the Budget Predictor</h1>
+    <p class="text-lg mb-8">Select an option below to get started.</p>
+    <div class="space-x-4">
+        <a href="{% url 'predict_rental' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md transition duration-150 ease-in-out">
+            Predict Rental Budget
+        </a>
+        <a href="{% url 'predict_land' %}" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md transition duration-150 ease-in-out">
+            Predict Land Purchase Budget
+        </a>
+    </div>
+    <div class="mt-12">
+        <h2 class="text-2xl font-semibold mb-4">Manage Data</h2>
+        <div class="space-x-4">
+             <a href="{% url 'rentalproperty_list' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Manage Rentals</a>
+             <a href="{% url 'landforsale_list' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Manage Land</a>
+             <a href="{% url 'import_csv' %}" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Import CSV Data</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

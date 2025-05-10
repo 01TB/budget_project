@@ -1,0 +1,104 @@
+Technology : Python 3.13
+Framework : Django
+IDE : PyCharm
+Database : Postgres (PostgreSQL) 17.2
+CSS : Tailwind
+Objectives : Create a web application that allows me to predict the budget needed to: rent a house or apartment, or buy land.
+
+There will be 2 main pages in this website :
+    - Page 1 : to predict the necessary budget for renting a house or an apartment
+    - Page 2 : to predict the necessary budget for buying a land
+A third page will be the host page :  in order to select the page the client would like to go
+
+There are several criteria when choosing a house or apartment to rent :
+    - type of access :
+        - without access
+        - motocycle access
+        - car access
+        - car access + parking
+    - number of rooms
+    - apartment OR house :
+        - if apartment :
+            - type of apartment :
+            - T1
+            - T2
+            - T3
+            - T4
+            - T5
+            - T6
+            - convenience :
+            - showers & toilets
+            - garage
+            - garden
+            - parking
+            - surveillance system
+            - dishwasher
+            - washing machine
+            - internet access
+        - if house :
+            - type of house :
+                - F1
+                - F2
+                - F3
+                - F4
+                - F5
+                - F6
+            - convenience :
+                - showers & toilets
+                - garage
+                - garden
+                - house basement
+                - parking
+                - surveillance system
+                - dishwasher
+                - washing machine
+                - internet access
+    - town :
+        - special feature: the city must be selected on a map.
+        - the client has to click on the city on the map to select the desired city.
+        - Give e instructions on how to connect the town on map with my Database
+
+There are also several criteria for choosing the land to buy
+    - paper type (it should be in french) :
+        - titre de propriété
+        - acte juridique
+        - plan cadastre
+    - type of access :
+        - without access
+        - motocycle access
+        - car access
+        - car access + parking
+    - Fenced :
+        - yes
+        - no
+    - Ready to build :
+        - yes
+        - no
+    - town :
+        - special feature: the city must be selected on a map.
+        - the client has to click on the city on the map to select the desired city.
+        - Give e instructions on how to connect the town on map with my Database
+
+When the client use the website :
+    - he will complete each field : for renting a house/apartment OR buying a land
+
+Particularity of the prediction : Use linear regression to make the prediction
+So I will need :
+
+    A dataset (often stored in a database table).
+
+    A dependent variable (what you want to predict) --> the price.
+
+    One or more independent variables (predictors).
+
+    A trained linear regression model (built using your dataset).
+
+    Guide me on how to train the model.
+
+Create also a CRUD page for houses for rent, apartments for rent and land for sale
+Create also a possibility to import these data directly as CSV files (a csv for each model).
+Don't forget to explain the csv structure for each model.
+
+Give me all the code and all the needed instructions to make this project.
+Make a complete database structure adapted to my project.
+Don't forget to explain me how to make the Tailwind CSS work.

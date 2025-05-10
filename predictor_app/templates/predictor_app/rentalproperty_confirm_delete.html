@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Confirm Delete{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Confirm Delete</h1>
+<p class="mb-4">Are you sure you want to delete "{{ object }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Confirm Delete</button>
+    <a href="{% url 'rentalproperty_list' %}" class="ml-2 text-gray-600 hover:text-gray-800">Cancel</a>
+</form>
+{% endblock %}

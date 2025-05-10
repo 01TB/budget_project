@@ -1,42 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="829a40f7-fe63-4ad3-bb7d-6be21074dea4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/budget_project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/budget_project/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/budget_project/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/budget_project/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/budget_project/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/budget_project/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/csv_uploads/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/trained_models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/management/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/management/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/management/commands/train_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/ml_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/budget_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/budget_project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/budget_project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/budget_project/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2wusBUl9sThRk345pcelzZfdAA7" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -84,6 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746902658685</updated>
       <workItem from="1746902686550" duration="13000" />
+      <workItem from="1746902711717" duration="1967000" />
     </task>
     <servers />
   </component>

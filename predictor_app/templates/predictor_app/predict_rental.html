@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Predict Rental Budget{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Predict Rental Budget</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+        <form method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="{{ form.town_name_display.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.town_name_display.label }}</label>
+                {{ form.town_name_display }}
+                {{ form.town }} {# Hidden input for town ID #}
+                {% if form.town.errors %}<p class="text-red-500 text-xs italic">{{ form.town.errors|first }}</p>{% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.access_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.access_type.label }}</label>
+                {{ form.access_type }}
+                {% if form.access_type.errors %}<p class="text-red-500 text-xs italic">{{ form.access_type.errors|first }}</p>{% endif %}
+            </div>
+
+            <div>
+                <span class="block text-sm font-medium text-gray-700">{{ form.property_type.label }}</span>
+                <div class="mt-1 space-x-4">
+                    {% for radio in form.property_type %}
+                    <label class="inline-flex items-center">
+                        {{ radio.tag }}
+                        <span class="ml-2">{{ radio.choice_label }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                {% if form.property_type.errors %}<p class="text-red-500 text-xs italic">{{ form.property_type.errors|first }}</p>{% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.num_rooms.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.num_rooms.label }}</label>
+                {{ form.num_rooms }}
+                {% if form.num_rooms.errors %}<p class="text-red-500 text-xs italic">{{ form.num_rooms.errors|first }}</p>{% endif %}
+            </div>
+
+            <div id="apartment_fields" class="space-y-4 {% if form.property_type.value != 'apartment' %}hidden{% endif %}">
+                <div>
+                    <label for="{{ form.apartment_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.apartment_type.label }}</label>
+                    {{ form.apartment_type }}
+                    {% if form.apartment_type.errors %}<p class="text-red-500 text-xs italic">{{ form.apartment_type.errors|first }}</p>{% endif %}
+                </div>
+            </div>
+
+            <div id="house_fields" class="space-y-4 {% if form.property_type.value != 'house' %}hidden{% endif %}">
+                <div>
+                    <label for="{{ form.house_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.house_type.label }}</label>
+                    {{ form.house_type }}
+                    {% if form.house_type.errors %}<p class="text-red-500 text-xs italic">{{ form.house_type.errors|first }}</p>{% endif %}
+                </div>
+                <div class="flex items-center">
+                    {{ form.has_house_basement }}
+                    <label for="{{ form.has_house_basement.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form.has_house_basement.label }}</label>
+                </div>
+            </div>
+            
+            <h3 class="text-lg font-medium text-gray-900 pt-4 border-t mt-4">Conveniences:</h3>
+            <div class="grid grid-cols-2 gap-4">
+                {% for field_name in form.fields %}
+                    {% if field_name in "has_showers_toilets has_garage has_garden has_parking has_surveillance_system has_dishwasher has_washing_machine has_internet_access" %}
+                        <div class="flex items-center">
+                            {{ form|getattr:field_name }}
+                            <label for="{{ form|getattr:field_name.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form|getattr:field_name.label }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Predict Budget
+            </button>
+        </form>
+
+        {% if predicted_price %}
+        <div class="mt-8 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md" role="alert">
+            <p class="font-bold">Predicted Rental Budget:</p>
+            <p class="text-2xl">
+                {% if predicted_price == "Model not trained yet." %}
+                    {{ predicted_price }}
+                {% else %}
+                    ${{ predicted_price|floatformat:2 }}
+                {% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        <h2 class="text-xl font-semibold mb-2">Select Town on Map</h2>
+        <div id="map" class="w-full h-96 rounded-lg shadow-md border border-gray-300"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Map setup
+        const map = L.map('map').setView([0, 0], 2); // Default view
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        let selectedMarker = null;
+        const townInputId = document.getElementById('rental_town_id');
+        const townNameDisplay = document.getElementById('rental_town_name_display');
+
+        fetch("{{ towns_json_url }}")
+            .then(response => response.json())
+            .then(towns => {
+                if (towns.length > 0) {
+                    // Attempt to center map based on first town with coordinates
+                    const firstTownWithCoords = towns.find(t => t.latitude && t.longitude);
+                    if (firstTownWithCoords) {
+                        map.setView([firstTownWithCoords.latitude, firstTownWithCoords.longitude], 6);
+                    }
+                }
+                towns.forEach(town => {
+                    if (town.latitude && town.longitude) {
+                        const marker = L.marker([town.latitude, town.longitude]).addTo(map);
+                        marker.bindPopup(`<b>${town.name}</b>`);
+                        marker.on('click', function () {
+                            if (selectedMarker) {
+                                selectedMarker.setIcon(new L.Icon.Default()); // Reset previous marker
+                            }
+                            this.setIcon(new L.Icon.Default({ className: 'custom-selected-marker' })); // Add custom class if you want to style it
+                            selectedMarker = this;
+                            
+                            townInputId.value = town.id;
+                            townNameDisplay.value = town.name;
+                        });
+                    }
+                });
+            });
+
+        // Conditional display of apartment/house fields
+        const propertyTypeRadios = document.querySelectorAll('input[name="property_type"]');
+        const apartmentFieldsDiv = document.getElementById('apartment_fields');
+        const houseFieldsDiv = document.getElementById('house_fields');
+
+        function togglePropertyFields() {
+            const selectedType = document.querySelector('input[name="property_type"]:checked').value;
+            if (selectedType === 'apartment') {
+                apartmentFieldsDiv.classList.remove('hidden');
+                houseFieldsDiv.classList.add('hidden');
+            } else if (selectedType === 'house') {
+                apartmentFieldsDiv.classList.add('hidden');
+                houseFieldsDiv.classList.remove('hidden');
+            } else {
+                apartmentFieldsDiv.classList.add('hidden');
+                houseFieldsDiv.classList.add('hidden');
+            }
+        }
+        propertyTypeRadios.forEach(radio => radio.addEventListener('change', togglePropertyFields));
+        togglePropertyFields(); // Initial call
+    });
+</script>
+<style>
+    /* Example for selected marker - optional */
+    .custom-selected-marker { 
+        filter: hue-rotate(120deg) brightness(1.5); /* Makes it greenish and brighter */
+    }
+</style>
+{% endblock %}
