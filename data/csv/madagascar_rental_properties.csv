@@ -1,0 +1,31 @@
+town_name,access_type,property_type,num_rooms,price,apartment_type,house_type,has_house_basement,has_showers_toilets,has_garage,has_garden,has_parking,has_surveillance_system,has_dishwasher,has_washing_machine,has_internet_access
+Antananarivo,car_access_parking,apartment,3,1200000,T3,,False,True,False,False,True,True,False,True,True
+Toamasina,motorcycle_access,house,4,950000,,F4,False,True,True,True,True,False,False,False,True
+Antsirabe,car_access,apartment,2,700000,T2,,False,True,False,False,True,False,False,False,False
+Fianarantsoa,without_access,house,5,1500000,,F5,True,True,True,True,False,True,True,True,True
+Mahajanga,car_access_parking,apartment,1,500000,T1,,False,True,False,False,True,False,False,False,True
+Toliara,motorcycle_access,house,2,650000,,F2,False,False,False,True,False,False,False,False,False
+Antananarivo,car_access,house,6,2500000,,F6,True,True,True,True,True,True,True,True,True
+Toamasina,without_access,apartment,4,1000000,T4,,False,True,False,False,False,False,False,True,True
+Antsirabe,car_access_parking,house,3,1100000,,F3,False,True,True,True,True,True,False,True,False
+Mahajanga,motorcycle_access,apartment,2,600000,T2,,False,True,False,False,False,False,False,False,True
+Antananarivo,car_access,apartment,5,1800000,T5,,False,True,True,False,True,True,True,True,True
+Fianarantsoa,car_access_parking,apartment,3,900000,T3,,False,True,False,True,True,False,False,True,True
+Toliara,car_access,house,4,1300000,,F4,True,True,True,True,True,False,False,False,True
+Ambatondrazaka,without_access,house,2,550000,,F2,False,True,False,True,False,False,False,False,False
+Morondava,motorcycle_access,apartment,1,450000,T1,,False,True,False,False,False,False,False,False,True
+Nosy Be,car_access_parking,house,5,3500000,,F5,True,True,True,True,True,True,True,True,True
+Diego Suarez (Antsiranana),car_access,apartment,2,750000,T2,,False,True,False,False,True,False,False,False,True
+Antananarivo,motorcycle_access,house,3,900000,,F3,False,True,False,True,True,False,False,True,False
+Toamasina,car_access_parking,apartment,4,1300000,T4,,False,True,True,False,True,True,False,True,True
+Antsirabe,without_access,apartment,1,400000,T1,,False,False,False,False,False,False,False,False,False
+Mahajanga,car_access,house,6,2200000,,F6,True,True,True,True,True,True,True,True,True
+Fianarantsoa,motorcycle_access,house,2,750000,,F2,False,True,False,True,False,False,False,False,True
+Antananarivo,car_access_parking,apartment,2,950000,T2,,False,True,False,False,True,True,False,True,True
+Toliara,without_access,apartment,3,800000,T3,,False,True,False,False,False,False,False,False,False
+Ambatondrazaka,car_access,house,4,1000000,,F4,False,True,True,True,True,False,False,False,True
+Morondava,car_access_parking,apartment,3,1150000,T3,,False,True,True,False,True,True,True,True,True
+Nosy Be,motorcycle_access,apartment,2,1500000,T2,,False,True,False,True,False,True,False,True,True
+Diego Suarez (Antsiranana),car_access_parking,house,5,1900000,,F5,True,True,True,True,True,True,True,True,True
+Antananarivo,without_access,house,1,500000,,F1,False,False,False,False,False,False,False,False,False
+Toamasina,car_access,house,3,850000,,F3,False,True,True,True,True,False,False,True,True

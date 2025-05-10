@@ -25,3 +25,21 @@
     <h3 class="text-lg font-medium mt-4 mb-1 text-blue-600">For Towns:</h3>
     <p class="text-sm text-gray-700">Columns: <code>name</code> (required), <code>latitude</code> (optional, float), <code>longitude</code> (optional, float)</p>
     <pre class="bg-gray-100 p-2 rounded text-xs mt-1 overflow-x-auto">name,latitude,longitude
+New York,40.7128,-74.0060
+Paris,48.8566,2.3522</pre>
+
+    <h3 class="text-lg font-medium mt-4 mb-1 text-blue-600">For Rental Properties:</h3>
+    <p class="text-sm text-gray-700">Columns: <code>town_name</code> (required, must match a Town name), <code>access_type</code>, <code>property_type</code>, <code>num_rooms</code>, <code>price</code>, <code>apartment_type</code> (if property_type is 'apartment'), <code>house_type</code> (if property_type is 'house'), <code>has_house_basement</code>, <code>has_showers_toilets</code>, <code>has_garage</code>, <code>has_garden</code>, <code>has_parking</code>, <code>has_surveillance_system</code>, <code>has_dishwasher</code>, <code>has_washing_machine</code>, <code>has_internet_access</code>.</p>
+    <p class="text-sm text-gray-700">Use internal choice values for <code>access_type</code>, <code>property_type</code>, etc. (e.g., 'car_access', 'apartment'). Boolean fields: 'True'/'False' or '1'/'0'.</p>
+    <pre class="bg-gray-100 p-2 rounded text-xs mt-1 overflow-x-auto">town_name,access_type,property_type,num_rooms,price,apartment_type,house_type,has_house_basement,has_showers_toilets,...
+New York,car_access,apartment,2,2500.00,T2,,False,True,...
+Paris,motorcycle_access,house,4,3200.50,,F4,True,True,...</pre>
+
+    <h3 class="text-lg font-medium mt-4 mb-1 text-blue-600">For Land For Sale:</h3>
+    <p class="text-sm text-gray-700">Columns: <code>town_name</code> (required), <code>paper_type</code>, <code>access_type</code>, <code>is_fenced</code>, <code>is_ready_to_build</code>, <code>area_sqm</code>, <code>price</code>.</p>
+    <p class="text-sm text-gray-700">Use internal choice values for <code>paper_type</code>, <code>access_type</code>. Boolean fields: 'True'/'False' or '1'/'0'.</p>
+    <pre class="bg-gray-100 p-2 rounded text-xs mt-1 overflow-x-auto">town_name,paper_type,access_type,is_fenced,is_ready_to_build,area_sqm,price
+New York,titre_propriete,car_access,True,False,500.00,150000.00
+Paris,plan_cadastre,without_access,False,True,300.75,95000.00</pre>
+</div>
+{% endblock %}

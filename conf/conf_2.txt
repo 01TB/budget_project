@@ -1,0 +1,8 @@
+I want enough data for Madagascar.
+
+Give me data according to my criteria for : 
+    - house to rent
+    - apartment to rent
+    - land to buy
+
+Give me them in csv files to test the csv import.

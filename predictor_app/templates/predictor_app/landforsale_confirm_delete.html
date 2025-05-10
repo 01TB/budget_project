@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Confirm Delete Land{% endblock %} {# Changed title slightly for clarity #}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Confirm Delete Land</h1>
+<p class="mb-4">Are you sure you want to delete the land record: "{{ object }}"?</p> {# 'object' will be the LandForSale instance #}
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Confirm Delete</button>
+    <a href="{% url 'landforsale_list' %}" class="ml-2 text-gray-600 hover:text-gray-800">Cancel</a>
+</form>
+{% endblock %}

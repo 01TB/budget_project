@@ -1,0 +1,31 @@
+town_name,paper_type,access_type,is_fenced,is_ready_to_build,area_sqm,price
+Antananarivo,titre_propriete,car_access_parking,True,True,500,75000000
+Toamasina,acte_juridique,motorcycle_access,False,True,300,30000000
+Antsirabe,plan_cadastre,car_access,True,False,1000,90000000
+Fianarantsoa,titre_propriete,without_access,False,False,250,20000000
+Mahajanga,acte_juridique,car_access_parking,True,True,600,65000000
+Toliara,plan_cadastre,motorcycle_access,False,True,400,35000000
+Ambatondrazaka,titre_propriete,car_access,True,False,1200,80000000
+Morondava,acte_juridique,without_access,False,True,200,15000000
+Nosy Be,titre_propriete,car_access_parking,True,True,800,200000000
+Diego Suarez (Antsiranana),plan_cadastre,car_access,False,False,700,50000000
+Antananarivo,acte_juridique,motorcycle_access,True,True,150,25000000
+Toamasina,titre_propriete,car_access,False,True,450,40000000
+Antsirabe,acte_juridique,without_access,True,False,350,32000000
+Mahajanga,plan_cadastre,car_access_parking,False,True,900,85000000
+Fianarantsoa,titre_propriete,car_access,True,True,650,70000000
+Toliara,acte_juridique,motorcycle_access,True,False,280,28000000
+Ambatondrazaka,plan_cadastre,without_access,False,True,1500,95000000
+Morondava,titre_propriete,car_access_parking,True,False,320,45000000
+Nosy Be,acte_juridique,car_access,False,True,100,50000000
+Diego Suarez (Antsiranana),titre_propriete,motorcycle_access,True,True,480,60000000
+Antananarivo,plan_cadastre,car_access,True,False,750,100000000
+Toamasina,titre_propriete,without_access,False,False,220,18000000
+Antsirabe,acte_juridique,car_access_parking,True,True,550,70000000
+Mahajanga,titre_propriete,motorcycle_access,False,True,380,42000000
+Fianarantsoa,plan_cadastre,car_access,True,False,800,78000000
+Toliara,titre_propriete,without_access,True,True,180,22000000
+Ambatondrazaka,acte_juridique,car_access_parking,False,False,600,55000000
+Morondava,plan_cadastre,motorcycle_access,True,True,270,33000000
+Nosy Be,titre_propriete,without_access,False,True,1200,300000000
+Diego Suarez (Antsiranana),acte_juridique,car_access_parking,True,False,400,48000000

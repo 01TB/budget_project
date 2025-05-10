@@ -5,23 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="829a40f7-fe63-4ad3-bb7d-6be21074dea4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/media/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/csv_uploads/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/trained_models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/management/commands/train_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/ml_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/predictor_app/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/landforsale_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static_src/css/input.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/budget_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/budget_project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/budget_project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/budget_project/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/templates/predictor_app/import_csv.html" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/import_csv.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/templates/predictor_app/predict_rental.html" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/predict_rental.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +23,7 @@
       <list>
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -53,10 +44,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.budget_project.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
     "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "master",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,6 +67,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="budget_project.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -108,7 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746902658685</updated>
       <workItem from="1746902686550" duration="13000" />
-      <workItem from="1746902711717" duration="1967000" />
+      <workItem from="1746902711717" duration="5431000" />
     </task>
     <servers />
   </component>

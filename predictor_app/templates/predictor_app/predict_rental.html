@@ -64,11 +64,12 @@
             
             <h3 class="text-lg font-medium text-gray-900 pt-4 border-t mt-4">Conveniences:</h3>
             <div class="grid grid-cols-2 gap-4">
-                {% for field_name in form.fields %}
-                    {% if field_name in "has_showers_toilets has_garage has_garden has_parking has_surveillance_system has_dishwasher has_washing_machine has_internet_access" %}
+                {% for field in form %}
+                    {% if field.name in "has_showers_toilets has_garage has_garden has_parking has_surveillance_system has_dishwasher has_washing_machine has_internet_access" %}
                         <div class="flex items-center">
-                            {{ form|getattr:field_name }}
-                            <label for="{{ form|getattr:field_name.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form|getattr:field_name.label }}</label>
+                            {{ field }} {# This renders the widget (e.g., checkbox) #}
+                            <label for="{{ field.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ field.label }}</label>
+                            {% if field.errors %}<p class="text-red-500 text-xs italic">{{ field.errors|first }}</p>{% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}

@@ -122,9 +122,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# Add this for project-level static files if needed, though app-specific is often better
-STATICFILES_DIRS = [BASE_DIR / "static"]
 
+# Directory where Django will collect all static files for deployment.
+# This should be an ABSOLUTE path.
+# Do NOT add this directory to your version control (e.g., .gitignore).
+STATIC_ROOT = BASE_DIR / 'staticfiles' # Or os.path.join(BASE_DIR, 'staticfiles')
+
+# Directories where Django will look for static files in addition to app's 'static' directories.
+STATICFILES_DIRS = [
+    BASE_DIR / 'static', # Project-level static files (where compiled CSS will go)
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

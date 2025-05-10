@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Lands For Sale{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Lands For Sale</h1>
+    <a href="{% url 'landforsale_new' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Add New Land</a>
+</div>
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <table class="min-w-full leading-normal">
+        <thead>
+            <tr>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Town</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Paper Type</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Access</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Area (sqm)</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Fenced</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ready to Build</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for land in lands %} {# Changed from 'properties' to 'lands' #}
+            <tr>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ land.town.name }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ land.get_paper_type_display }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ land.get_access_type_display }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ land.area_sqm|floatformat:2 }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{% if land.is_fenced %}Yes{% else %}No{% endif %}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{% if land.is_ready_to_build %}Yes{% else %}No{% endif %}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${{ land.price|floatformat:2 }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <a href="{% url 'landforsale_edit' land.pk %}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+                    <a href="{% url 'landforsale_delete' land.pk %}" class="text-red-600 hover:text-red-900">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8" class="text-center py-4">No lands for sale found.</td></tr> {# Changed colspan and message #}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
