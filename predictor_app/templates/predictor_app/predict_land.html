@@ -49,17 +49,20 @@
             </button>
         </form>
 
-        {% if predicted_price %}
-        <div class="mt-8 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md" role="alert">
-            <p class="font-bold">Predicted Land Purchase Budget:</p>
-             <p class="text-2xl">
-                {% if predicted_price == "Model not trained yet." %}
-                    {{ predicted_price }}
-                {% else %}
-                    ${{ predicted_price|floatformat:2 }}
-                {% endif %}
-            </p>
-        </div>
+        {% if predicted_price_sqm %} {# This checks if the variable exists and is not False/None/empty #}
+            <div class="mt-8 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md" role="alert">
+                <p class="font-bold">Predicted Land Price per Square Meter:</p>
+                 <p class="text-2xl">
+                    {% if predicted_price_sqm == "Model not trained yet." or "Error" in predicted_price_sqm|stringformat:"s" %} {# Check for error strings #}
+                        <span class="text-red-600">{{ predicted_price_sqm }}</span>
+                    {% elif predicted_price_sqm is not None %} {# Ensure it's a number-like value #}
+                        ${{ predicted_price_sqm|floatformat:2 }} / sqm
+                    {% else %}
+                        <span class="text-orange-600">Prediction could not be determined.</span>
+                    {% endif %}
+                </p>
+                {# ... example_total_prices and user_area input ... #}
+            </div>
         {% endif %}
     </div>
     <div>

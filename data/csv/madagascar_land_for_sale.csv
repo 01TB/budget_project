@@ -1,31 +1,31 @@
-town_name,paper_type,access_type,is_fenced,is_ready_to_build,area_sqm,price
-Antananarivo,titre_propriete,car_access_parking,True,True,500,75000000
-Toamasina,acte_juridique,motorcycle_access,False,True,300,30000000
-Antsirabe,plan_cadastre,car_access,True,False,1000,90000000
-Fianarantsoa,titre_propriete,without_access,False,False,250,20000000
-Mahajanga,acte_juridique,car_access_parking,True,True,600,65000000
-Toliara,plan_cadastre,motorcycle_access,False,True,400,35000000
-Ambatondrazaka,titre_propriete,car_access,True,False,1200,80000000
-Morondava,acte_juridique,without_access,False,True,200,15000000
-Nosy Be,titre_propriete,car_access_parking,True,True,800,200000000
-Diego Suarez (Antsiranana),plan_cadastre,car_access,False,False,700,50000000
-Antananarivo,acte_juridique,motorcycle_access,True,True,150,25000000
-Toamasina,titre_propriete,car_access,False,True,450,40000000
-Antsirabe,acte_juridique,without_access,True,False,350,32000000
-Mahajanga,plan_cadastre,car_access_parking,False,True,900,85000000
-Fianarantsoa,titre_propriete,car_access,True,True,650,70000000
-Toliara,acte_juridique,motorcycle_access,True,False,280,28000000
-Ambatondrazaka,plan_cadastre,without_access,False,True,1500,95000000
-Morondava,titre_propriete,car_access_parking,True,False,320,45000000
-Nosy Be,acte_juridique,car_access,False,True,100,50000000
-Diego Suarez (Antsiranana),titre_propriete,motorcycle_access,True,True,480,60000000
-Antananarivo,plan_cadastre,car_access,True,False,750,100000000
-Toamasina,titre_propriete,without_access,False,False,220,18000000
-Antsirabe,acte_juridique,car_access_parking,True,True,550,70000000
-Mahajanga,titre_propriete,motorcycle_access,False,True,380,42000000
-Fianarantsoa,plan_cadastre,car_access,True,False,800,78000000
-Toliara,titre_propriete,without_access,True,True,180,22000000
-Ambatondrazaka,acte_juridique,car_access_parking,False,False,600,55000000
-Morondava,plan_cadastre,motorcycle_access,True,True,270,33000000
-Nosy Be,titre_propriete,without_access,False,True,1200,300000000
-Diego Suarez (Antsiranana),acte_juridique,car_access_parking,True,False,400,48000000
+town_name,paper_type_name,access_type_name,is_fenced,is_ready_to_build,area_sqm,price
+Antananarivo,titre_propriete,car_access_parking,True,True,520,78000000
+Toamasina,acte_juridique,motorcycle_access,False,True,310,32000000
+Antsirabe,plan_cadastre,car_access,True,False,1050,95000000
+Fianarantsoa,certificat_foncier,without_access,False,False,260,21000000
+Mahajanga,bail_emphyteotique,car_access_parking,True,True,630,68000000
+Toliara,autorisation_occuper,motorcycle_access,False,True,410,37000000
+Ambatondrazaka,titre_propriete,car_access,True,False,1250,83000000
+Morondava,acte_juridique,without_access,False,True,210,16000000
+Nosy Be,titre_propriete,car_access_parking,True,True,850,220000000
+Diego Suarez (Antsiranana),plan_cadastre,car_access,False,False,720,53000000
+Ambanja,certificat_foncier,motorcycle_access,True,True,350,40000000
+Manakara,autorisation_occuper,without_access,False,False,180,12000000
+Sambava,titre_propriete,car_access,True,True,600,75000000
+Fort Dauphin (Taolagnaro),acte_juridique,car_access_parking,False,True,450,55000000
+Moramanga,plan_cadastre,motorcycle_access,True,False,900,60000000
+Antananarivo,bail_emphyteotique,foot_path_only,False,True,150,20000000
+Toamasina,titre_propriete,boat_access,True,False,1000,150000000
+Antsirabe,certificat_foncier,car_access_parking,True,True,480,65000000
+Mahajanga,acte_juridique,car_access,False,True,700,72000000
+Fianarantsoa,plan_cadastre,motorcycle_access,True,False,320,28000000
+Toliara,titre_propriete,without_access,False,True,200,18000000
+Ambatondrazaka,autorisation_occuper,foot_path_only,True,False,500,30000000
+Morondava,bail_emphyteotique,car_access,False,True,400,42000000
+Nosy Be,certificat_foncier,car_access_parking,True,True,250,90000000
+Diego Suarez (Antsiranana),titre_propriete,motorcycle_access,False,False,550,45000000
+Antananarivo,plan_cadastre,car_access,True,True,300,50000000
+Toamasina,acte_juridique,without_access,True,False,280,25000000
+Antsirabe,titre_propriete,foot_path_only,False,True,120,15000000
+Mahajanga,certificat_foncier,boat_access,True,True,1500,200000000
+Fianarantsoa,bail_emphyteotique,car_access_parking,False,False,420,38000000

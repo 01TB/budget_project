@@ -1,0 +1,7 @@
+name,description
+without_access,Without Access
+motorcycle_access,Motorcycle Access
+car_access,Car Access
+car_access_parking,Car Access + Parking
+foot_path_only,Foot Path Only
+boat_access,Boat Access (Coastal/Island)

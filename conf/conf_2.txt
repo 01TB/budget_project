@@ -5,4 +5,10 @@ Give me data according to my criteria for :
     - apartment to rent
     - land to buy
 
+Give me also data for other CRUD according to :
+    - paper type
+    - access type
+    - convenience
+
 Give me them in csv files to test the csv import.
+Then give me instructions on how to train my models.

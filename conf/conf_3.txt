@@ -1,1 +1,12 @@
-Now, how to train my models?
+When we predict Land Purchase Budget, the client doesn't specify the area.
+He just get the average price of the land with his criteria.
+
+Moreover : 
+    - allow me to import Conviniences, Access type and Paper type with csv.
+    - make the crud of them possible
+
+
+
+With all of that, now give me the instructions to make your with Option C : Predict a Price Range or "Per Unit Area" Price, instead of Option 1. And also : 
+    - allow me to import Conviniences, Access type and Paper type with csv.
+    - make the crud of them possible

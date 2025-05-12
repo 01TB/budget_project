@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Confirm Delete {{ item_type|default:"Item" }}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6 text-red-700">Confirm Delete: {{ item_type|default:"Item" }}</h1>
+    <p class="mb-6 text-gray-700">Are you sure you want to delete the {{ item_type|lower|default:"item" }}:
+        <strong class="text-gray-900">"{{ object }}"</strong>?
+    </p>
+    <p class="mb-6 text-sm text-red-600">This action cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex items-center space-x-4">
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline">
+                Confirm Delete
+            </button>
+            <a href="{% if list_url_name %}{% url list_url_name %}{% else %}{% url 'home' %}{% endif %}"
+               class="text-gray-600 hover:text-gray-800 py-2 px-4 rounded border border-gray-300 hover:bg-gray-100">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

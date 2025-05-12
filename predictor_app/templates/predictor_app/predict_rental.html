@@ -1,173 +1,257 @@
 {% extends "base.html" %}
+{% load static %} {# Ensure static is loaded if you use any static assets directly here, though base.html should handle main CSS #}
 
 {% block title %}Predict Rental Budget{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-6">Predict Rental Budget</h1>
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800 text-center">Predict Rental Budget</h1>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <div>
-        <form method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
-            {% csrf_token %}
-            
-            <div>
-                <label for="{{ form.town_name_display.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.town_name_display.label }}</label>
-                {{ form.town_name_display }}
-                {{ form.town }} {# Hidden input for town ID #}
-                {% if form.town.errors %}<p class="text-red-500 text-xs italic">{{ form.town.errors|first }}</p>{% endif %}
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
 
-            <div>
-                <label for="{{ form.access_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.access_type.label }}</label>
-                {{ form.access_type }}
-                {% if form.access_type.errors %}<p class="text-red-500 text-xs italic">{{ form.access_type.errors|first }}</p>{% endif %}
-            </div>
-
-            <div>
-                <span class="block text-sm font-medium text-gray-700">{{ form.property_type.label }}</span>
-                <div class="mt-1 space-x-4">
-                    {% for radio in form.property_type %}
-                    <label class="inline-flex items-center">
-                        {{ radio.tag }}
-                        <span class="ml-2">{{ radio.choice_label }}</span>
-                    </label>
-                    {% endfor %}
+                {# Town Selection (Map Driven) #}
+                <div class="mb-4">
+                    <label for="{{ form.town_name_display.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ form.town_name_display.label }}</label>
+                    {{ form.town_name_display.as_widget.attrs.class }} {# Render with existing form widget classes #}
+                    {{ form.town }} {# Hidden input for town ID #}
+                    {% if form.town.errors %}<p class="text-red-500 text-xs italic mt-1">{{ form.town.errors|first }}</p>{% endif %}
                 </div>
-                {% if form.property_type.errors %}<p class="text-red-500 text-xs italic">{{ form.property_type.errors|first }}</p>{% endif %}
-            </div>
-            
-            <div>
-                <label for="{{ form.num_rooms.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.num_rooms.label }}</label>
-                {{ form.num_rooms }}
-                {% if form.num_rooms.errors %}<p class="text-red-500 text-xs italic">{{ form.num_rooms.errors|first }}</p>{% endif %}
-            </div>
 
-            <div id="apartment_fields" class="space-y-4 {% if form.property_type.value != 'apartment' %}hidden{% endif %}">
-                <div>
-                    <label for="{{ form.apartment_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.apartment_type.label }}</label>
-                    {{ form.apartment_type }}
-                    {% if form.apartment_type.errors %}<p class="text-red-500 text-xs italic">{{ form.apartment_type.errors|first }}</p>{% endif %}
+                {# Access Type #}
+                <div class="mb-4">
+                    <label for="{{ form.access_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ form.access_type.label }}</label>
+                    {{ form.access_type }} {# Django renders ModelChoiceField as a select by default, styled by BaseStyledModelForm #}
+                    {% if form.access_type.errors %}<p class="text-red-500 text-xs italic mt-1">{{ form.access_type.errors|first }}</p>{% endif %}
                 </div>
-            </div>
 
-            <div id="house_fields" class="space-y-4 {% if form.property_type.value != 'house' %}hidden{% endif %}">
-                <div>
-                    <label for="{{ form.house_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.house_type.label }}</label>
-                    {{ form.house_type }}
-                    {% if form.house_type.errors %}<p class="text-red-500 text-xs italic">{{ form.house_type.errors|first }}</p>{% endif %}
+                {# Property Type (Radios) #}
+                <div class="mb-4">
+                    <span class="block text-sm font-medium text-gray-700 mb-1">{{ form.property_type.label }}</span>
+                    <div class="mt-1 flex flex-wrap gap-x-6 gap-y-2">
+                        {% for radio in form.property_type %}
+                        <label class="inline-flex items-center cursor-pointer">
+                            {{ radio.tag }}
+                            <span class="ml-2 text-sm text-gray-700">{{ radio.choice_label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    {% if form.property_type.errors %}<p class="text-red-500 text-xs italic mt-1">{{ form.property_type.errors|first }}</p>{% endif %}
                 </div>
-                <div class="flex items-center">
-                    {{ form.has_house_basement }}
-                    <label for="{{ form.has_house_basement.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form.has_house_basement.label }}</label>
+
+                {# Number of Rooms #}
+                <div class="mb-4">
+                    <label for="{{ form.num_rooms.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ form.num_rooms.label }}</label>
+                    {{ form.num_rooms }} {# Styled by BaseStyledModelForm #}
+                    {% if form.num_rooms.errors %}<p class="text-red-500 text-xs italic mt-1">{{ form.num_rooms.errors|first }}</p>{% endif %}
                 </div>
-            </div>
-            
-            <h3 class="text-lg font-medium text-gray-900 pt-4 border-t mt-4">Conveniences:</h3>
-            <div class="grid grid-cols-2 gap-4">
-                {% for field in form %}
-                    {% if field.name in "has_showers_toilets has_garage has_garden has_parking has_surveillance_system has_dishwasher has_washing_machine has_internet_access" %}
-                        <div class="flex items-center">
-                            {{ field }} {# This renders the widget (e.g., checkbox) #}
-                            <label for="{{ field.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ field.label }}</label>
-                            {% if field.errors %}<p class="text-red-500 text-xs italic">{{ field.errors|first }}</p>{% endif %}
-                        </div>
+
+                {# Apartment Specific Fields #}
+                <div id="apartment_fields" class="space-y-4 {% if form.property_type.value != 'apartment' and form.property_type.value %}hidden{% endif %} border-t border-gray-200 pt-4 mt-4">
+                    <h3 class="text-md font-semibold text-gray-600">Apartment Details:</h3>
+                    <div>
+                        <label for="{{ form.apartment_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ form.apartment_type.label }}</label>
+                        {{ form.apartment_type }} {# Styled by BaseStyledModelForm #}
+                        {% if form.apartment_type.errors %}<p class="text-red-500 text-xs italic mt-1">{{ form.apartment_type.errors|first }}</p>{% endif %}
+                    </div>
+                </div>
+
+                {# House Specific Fields #}
+                <div id="house_fields" class="space-y-4 {% if form.property_type.value != 'house' and form.property_type.value %}hidden{% endif %} border-t border-gray-200 pt-4 mt-4">
+                    <h3 class="text-md font-semibold text-gray-600">House Details:</h3>
+                    <div>
+                        <label for="{{ form.house_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ form.house_type.label }}</label>
+                        {{ form.house_type }} {# Styled by BaseStyledModelForm #}
+                        {% if form.house_type.errors %}<p class="text-red-500 text-xs italic mt-1">{{ form.house_type.errors|first }}</p>{% endif %}
+                    </div>
+                    <div class="flex items-center">
+                        {{ form.has_house_basement }}
+                        <label for="{{ form.has_house_basement.id_for_label }}" class="ml-2 block text-sm text-gray-900">{{ form.has_house_basement.label }}</label>
+                         {% if form.has_house_basement.errors %}<p class="text-red-500 text-xs italic ml-2">{{ form.has_house_basement.errors|first }}</p>{% endif %}
+                    </div>
+                </div>
+
+                {# Conveniences (CheckboxSelectMultiple) #}
+                <div class="mb-4 border-t border-gray-200 pt-4 mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.conveniences.label|default:"Available Conveniences" }}</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 max-h-72 overflow-y-auto p-3 border border-gray-200 rounded-md custom-scrollbar">
+                        {% for checkbox in form.conveniences %}
+                        <label for="{{ checkbox.id_for_label }}" class="flex items-center text-sm text-gray-700 hover:bg-gray-50 p-1.5 rounded-md cursor-pointer transition-colors duration-150 ease-in-out">
+                            {{ checkbox.tag }} {# Renders <input type="checkbox" ...> #}
+                            <span class="ml-2 select-none">{{ checkbox.choice_label }}</span> {# Label for the checkbox #}
+                        </label>
+                        {% endfor %}
+                    </div>
+                    {% if form.conveniences.errors %}
+                        {% for error in form.conveniences.errors %}
+                            <p class="mt-1 text-xs text-red-500">{{ error }}</p>
+                        {% endfor %}
                     {% endif %}
-                {% endfor %}
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-md focus:outline-none focus:shadow-outline transition-colors duration-150 ease-in-out">
+                    Predict Budget
+                </button>
+            </form>
+        </div>
+
+        {# Right Column: Map and Prediction Result #}
+        <div class="space-y-6">
+            <div class="bg-white p-1 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-3 text-gray-700 px-4 pt-4">Select Town on Map</h2>
+                <div id="map" class="w-full h-80 md:h-96 rounded-b-lg border-t border-gray-200"></div>
             </div>
 
-
-            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Predict Budget
-            </button>
-        </form>
-
-        {% if predicted_price %}
-        <div class="mt-8 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md" role="alert">
-            <p class="font-bold">Predicted Rental Budget:</p>
-            <p class="text-2xl">
-                {% if predicted_price == "Model not trained yet." %}
-                    {{ predicted_price }}
-                {% else %}
-                    ${{ predicted_price|floatformat:2 }}
-                {% endif %}
-            </p>
+            {% if predicted_price is not None %} {# Check if variable exists, even if it's an error string #}
+            <div class="bg-green-50 border-l-4 {% if 'Error' in predicted_price|stringformat:'s' or 'not trained' in predicted_price|stringformat:'s' %}border-red-500 text-red-700{% else %}border-green-500 text-green-700{% endif %} p-6 rounded-md shadow-lg" role="alert">
+                <p class="font-bold text-lg mb-1">
+                    {% if 'Error' in predicted_price|stringformat:'s' or 'not trained' in predicted_price|stringformat:'s' %}
+                        Prediction Status:
+                    {% else %}
+                        Predicted Rental Budget:
+                    {% endif %}
+                </p>
+                <p class="text-3xl font-semibold">
+                    {% if predicted_price == "Rental model not trained yet. Please run the training script." %}
+                        {{ predicted_price }}
+                    {% elif "Error" in predicted_price|stringformat:"s" %}
+                        {{ predicted_price }}
+                    {% else %}
+                        ${{ predicted_price|floatformat:2 }} Ar
+                        {# Assuming Ar for Ariary, adjust currency symbol/name as needed #}
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
-    <div>
-        <h2 class="text-xl font-semibold mb-2">Select Town on Map</h2>
-        <div id="map" class="w-full h-96 rounded-lg shadow-md border border-gray-300"></div>
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Map setup
-        const map = L.map('map').setView([0, 0], 2); // Default view
+document.addEventListener('DOMContentLoaded', function () {
+    // Map setup
+    const mapElement = document.getElementById('map');
+    if (mapElement) {
+        const map = L.map('map').setView([-18.8792, 47.5079], 6); // Centered on Antananarivo, Madagascar
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         let selectedMarker = null;
-        const townInputId = document.getElementById('rental_town_id');
-        const townNameDisplay = document.getElementById('rental_town_name_display');
+        const townInputId = document.getElementById('{{ form.town.id_for_label }}'); // More robust
+        const townNameDisplay = document.getElementById('{{ form.town_name_display.id_for_label }}'); // More robust
 
         fetch("{{ towns_json_url }}")
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok for towns data');
+                }
+                return response.json();
+            })
             .then(towns => {
-                if (towns.length > 0) {
-                    // Attempt to center map based on first town with coordinates
+                if (towns && towns.length > 0) {
                     const firstTownWithCoords = towns.find(t => t.latitude && t.longitude);
                     if (firstTownWithCoords) {
-                        map.setView([firstTownWithCoords.latitude, firstTownWithCoords.longitude], 6);
+                        // map.setView([firstTownWithCoords.latitude, firstTownWithCoords.longitude], 7); // Optionally zoom to first town
                     }
                 }
                 towns.forEach(town => {
                     if (town.latitude && town.longitude) {
-                        const marker = L.marker([town.latitude, town.longitude]).addTo(map);
+                        const marker = L.marker([town.latitude, town.longitude], { title: town.name }).addTo(map);
                         marker.bindPopup(`<b>${town.name}</b>`);
                         marker.on('click', function () {
                             if (selectedMarker) {
-                                selectedMarker.setIcon(new L.Icon.Default()); // Reset previous marker
+                                selectedMarker.setOpacity(0.7); // Example: reset previous marker style
                             }
-                            this.setIcon(new L.Icon.Default({ className: 'custom-selected-marker' })); // Add custom class if you want to style it
+                            this.setOpacity(1.0); // Example: highlight selected marker
                             selectedMarker = this;
-                            
-                            townInputId.value = town.id;
-                            townNameDisplay.value = town.name;
+
+                            if(townInputId) townInputId.value = town.id;
+                            if(townNameDisplay) townNameDisplay.value = town.name;
                         });
+                        // Style for non-selected markers (optional)
+                        marker.setOpacity(0.7);
                     }
                 });
+            })
+            .catch(error => {
+                console.error('Error fetching or processing town data for map:', error);
+                if(townNameDisplay) townNameDisplay.placeholder = 'Error loading towns for map.';
             });
+    }
 
-        // Conditional display of apartment/house fields
-        const propertyTypeRadios = document.querySelectorAll('input[name="property_type"]');
-        const apartmentFieldsDiv = document.getElementById('apartment_fields');
-        const houseFieldsDiv = document.getElementById('house_fields');
+    // Conditional display of apartment/house fields
+    const propertyTypeRadios = document.querySelectorAll('input[name="{{ form.property_type.name }}"]');
+    const apartmentFieldsDiv = document.getElementById('apartment_fields');
+    const houseFieldsDiv = document.getElementById('house_fields');
 
-        function togglePropertyFields() {
-            const selectedType = document.querySelector('input[name="property_type"]:checked').value;
-            if (selectedType === 'apartment') {
-                apartmentFieldsDiv.classList.remove('hidden');
-                houseFieldsDiv.classList.add('hidden');
-            } else if (selectedType === 'house') {
-                apartmentFieldsDiv.classList.add('hidden');
-                houseFieldsDiv.classList.remove('hidden');
-            } else {
-                apartmentFieldsDiv.classList.add('hidden');
-                houseFieldsDiv.classList.add('hidden');
-            }
+    function togglePropertyFields() {
+        if (!apartmentFieldsDiv || !houseFieldsDiv) return; // Guard clause
+        const selectedTypeRadio = document.querySelector('input[name="{{ form.property_type.name }}"]:checked');
+        if (!selectedTypeRadio) { // If nothing is selected initially
+            apartmentFieldsDiv.classList.add('hidden');
+            houseFieldsDiv.classList.add('hidden');
+            return;
         }
-        propertyTypeRadios.forEach(radio => radio.addEventListener('change', togglePropertyFields));
-        togglePropertyFields(); // Initial call
+        const selectedType = selectedTypeRadio.value;
+
+        if (selectedType === 'apartment') {
+            apartmentFieldsDiv.classList.remove('hidden');
+            houseFieldsDiv.classList.add('hidden');
+        } else if (selectedType === 'house') {
+            apartmentFieldsDiv.classList.add('hidden');
+            houseFieldsDiv.classList.remove('hidden');
+        } else {
+            apartmentFieldsDiv.classList.add('hidden');
+            houseFieldsDiv.classList.add('hidden');
+        }
+    }
+
+    propertyTypeRadios.forEach(radio => radio.addEventListener('change', togglePropertyFields));
+
+    // Check if a radio button is already checked on page load (e.g., after form submission with errors)
+    let initialSelectedType = false;
+    propertyTypeRadios.forEach(radio => {
+        if (radio.checked) {
+            initialSelectedType = true;
+        }
     });
+    if(initialSelectedType){
+        togglePropertyFields(); // Initial call if a value is already selected
+    } else if (apartmentFieldsDiv && houseFieldsDiv) { // Ensure divs are hidden if no initial selection
+        apartmentFieldsDiv.classList.add('hidden');
+        houseFieldsDiv.classList.add('hidden');
+    }
+
+
+});
 </script>
 <style>
-    /* Example for selected marker - optional */
-    .custom-selected-marker { 
-        filter: hue-rotate(120deg) brightness(1.5); /* Makes it greenish and brighter */
+    /* Custom scrollbar for conveniences (optional) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1; /* Tailwind gray-300 */
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8; /* Tailwind gray-400 */
+    }
+    /* Leaflet selected marker style */
+    .leaflet-marker-icon.leaflet-interactive[title] { /* Default marker opacity */
+        opacity: 0.7;
+    }
+    .leaflet-marker-icon.leaflet-interactive[title]:hover { /* Hover opacity */
+        opacity: 1.0;
     }
 </style>
 {% endblock %}

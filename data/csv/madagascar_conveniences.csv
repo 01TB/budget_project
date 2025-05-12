@@ -1,0 +1,15 @@
+name,description
+showers_toilets,Showers & Toilets
+garage,Garage
+garden,Garden
+parking,Dedicated Parking (distinct from access type)
+surveillance_system,Surveillance System
+dishwasher,Dishwasher
+washing_machine,Washing Machine
+internet_access,Internet Access
+air_conditioning,Air Conditioning
+balcony_terrace,Balcony or Terrace
+water_heater,Water Heater
+backup_generator,Backup Generator
+furnished,Furnished
+gated_community,Gated Community

@@ -1,29 +1,56 @@
 from django import forms
-from .models import RentalProperty, LandForSale, Town
+from .models import RentalProperty, LandForSale, Town, AccessType, PaperType, Convenience
 
+# --- Prediction Forms ---
 class RentalPredictionForm(forms.Form):
-    town = forms.ModelChoiceField(queryset=Town.objects.all(), empty_label="Select Town", widget=forms.HiddenInput(attrs={'id': 'rental_town_id'})) # Will be set by map
-    town_name_display = forms.CharField(label="Selected Town", disabled=True, required=False, widget=forms.TextInput(attrs={'id': 'rental_town_name_display', 'placeholder': 'Click on map to select'}))
-    access_type = forms.ChoiceField(choices=RentalProperty.ACCESS_CHOICES)
-    property_type = forms.ChoiceField(choices=RentalProperty.PROPERTY_TYPE_CHOICES, widget=forms.RadioSelect)
-    num_rooms = forms.IntegerField(min_value=1, initial=1)
+    town = forms.ModelChoiceField(
+        queryset=Town.objects.all(),
+        empty_label="Select Town",
+        widget=forms.HiddenInput(attrs={'id': 'rental_town_id'})
+    )
+    town_name_display = forms.CharField(
+        label="Selected Town",
+        disabled=True,
+        required=False,
+        widget=forms.TextInput(attrs={'id': 'rental_town_name_display', 'placeholder': 'Click on map to select'})
+    )
+    access_type = forms.ModelChoiceField(
+        queryset=AccessType.objects.all(),
+        empty_label="Select Access Type",
+        required=True,
+        widget=forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )
+    property_type = forms.ChoiceField(
+        choices=RentalProperty.PROPERTY_TYPE_CHOICES,
+        widget=forms.RadioSelect # Consider styling this in template if RadioSelect default isn't good
+    )
+    num_rooms = forms.IntegerField(
+        min_value=1,
+        initial=1,
+        widget=forms.NumberInput(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )
 
-    # Apartment specific (show/hide with JS later)
-    apartment_type = forms.ChoiceField(choices=[('', '---')] + list(RentalProperty.APARTMENT_TYPE_CHOICES), required=False)
+    apartment_type = forms.ChoiceField(
+        choices=RentalProperty.APARTMENT_TYPE_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )
+    house_type = forms.ChoiceField(
+        choices=RentalProperty.HOUSE_TYPE_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )
+    has_house_basement = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'})
+    )
 
-    # House specific (show/hide with JS later)
-    house_type = forms.ChoiceField(choices=[('', '---')] + list(RentalProperty.HOUSE_TYPE_CHOICES), required=False)
-    has_house_basement = forms.BooleanField(required=False)
-
-    # Conveniences
-    has_showers_toilets = forms.BooleanField(required=False)
-    has_garage = forms.BooleanField(required=False)
-    has_garden = forms.BooleanField(required=False)
-    has_parking = forms.BooleanField(required=False)
-    has_surveillance_system = forms.BooleanField(required=False)
-    has_dishwasher = forms.BooleanField(required=False)
-    has_washing_machine = forms.BooleanField(required=False)
-    has_internet_access = forms.BooleanField(required=False)
+    conveniences = forms.ModelMultipleChoiceField(
+        queryset=Convenience.objects.all(),
+        widget=forms.CheckboxSelectMultiple,  # This is key for checkboxes
+        required=False,
+        label="Available Conveniences"  # Add a label if you want one
+    )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -35,59 +62,93 @@ class RentalPredictionForm(forms.Form):
         return cleaned_data
 
 
-class LandPredictionForm(forms.Form):
-    town = forms.ModelChoiceField(queryset=Town.objects.all(), empty_label="Select Town", widget=forms.HiddenInput(attrs={'id': 'land_town_id'}))
-    town_name_display = forms.CharField(label="Selected Town", disabled=True, required=False, widget=forms.TextInput(attrs={'id': 'land_town_name_display', 'placeholder': 'Click on map to select'}))
-    paper_type = forms.ChoiceField(choices=LandForSale.PAPER_TYPE_CHOICES)
-    access_type = forms.ChoiceField(choices=LandForSale.ACCESS_CHOICES)
-    is_fenced = forms.BooleanField(required=False)
-    is_ready_to_build = forms.BooleanField(required=False)
-    area_sqm = forms.DecimalField(min_value=1, label="Area (sqm)")
+class LandPredictionForm(forms.Form): # For Option C (Price Per SqM)
+    town = forms.ModelChoiceField(
+        queryset=Town.objects.all(),
+        empty_label="Select Town",
+        widget=forms.HiddenInput(attrs={'id': 'land_town_id'})
+    )
+    town_name_display = forms.CharField(
+        label="Selected Town",
+        disabled=True,
+        required=False,
+        widget=forms.TextInput(attrs={'id': 'land_town_name_display', 'placeholder': 'Click on map to select'})
+    )
+    paper_type = forms.ModelChoiceField(
+        queryset=PaperType.objects.all(),
+        empty_label="Select Paper Type",
+        required=True,
+        widget=forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )
+    access_type = forms.ModelChoiceField(
+        queryset=AccessType.objects.all(),
+        empty_label="Select Access Type",
+        required=True,
+        widget=forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )
+    is_fenced = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'})
+    )
+    is_ready_to_build = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'})
+    )
+    # area_sqm is removed for Option C prediction form
 
+# --- CRUD ModelForms ---
+class BaseStyledModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field.widget, (forms.TextInput, forms.NumberInput, forms.Select, forms.EmailInput, forms.Textarea)):
+                current_class = field.widget.attrs.get('class', '')
+                field.widget.attrs.update({'class': f'{current_class} w-full p-2 border border-gray-300 rounded mt-1'.strip()})
+            elif isinstance(field.widget, forms.CheckboxInput):
+                field.widget.attrs.update({'class': 'h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'})
+            # CheckboxSelectMultiple (for ManyToMany) usually needs template-side styling
 
-class RentalPropertyForm(forms.ModelForm):
+class RentalPropertyForm(BaseStyledModelForm):
     class Meta:
         model = RentalProperty
         exclude = ['created_at', 'updated_at']
         widgets = {
-            'price': forms.NumberInput(attrs={'step': '0.01'}),
-            'town': forms.Select(attrs={'class': 'form-select w-full p-2 border rounded'}),
-            # Add more widgets if needed for styling
+            'conveniences': forms.CheckboxSelectMultiple,
         }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            if isinstance(field.widget, (forms.TextInput, forms.NumberInput, forms.Select, forms.EmailInput)):
-                field.widget.attrs.update({'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
-            elif isinstance(field.widget, forms.CheckboxInput):
-                 field.widget.attrs.update({'class': 'mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'})
-            elif isinstance(field.widget, forms.RadioSelect):
-                 # RadioSelect needs special handling, usually in the template
-                 pass
 
-
-class LandForSaleForm(forms.ModelForm):
+class LandForSaleForm(BaseStyledModelForm):
     class Meta:
         model = LandForSale
-        exclude = ['created_at', 'updated_at']
-        widgets = {
-            'price': forms.NumberInput(attrs={'step': '0.01'}),
-            'area_sqm': forms.NumberInput(attrs={'step': '0.01'}),
-            'town': forms.Select(attrs={'class': 'form-select w-full p-2 border rounded'}),
-        }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            if isinstance(field.widget, (forms.TextInput, forms.NumberInput, forms.Select, forms.EmailInput)):
-                field.widget.attrs.update({'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
-            elif isinstance(field.widget, forms.CheckboxInput):
-                 field.widget.attrs.update({'class': 'mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'})
+        exclude = ['created_at', 'updated_at', 'price_per_sqm'] # price_per_sqm is auto-calculated
 
+# --- CRUD Forms for Lookup Tables ---
+class AccessTypeForm(BaseStyledModelForm):
+    class Meta:
+        model = AccessType
+        fields = ['name', 'description']
 
+class PaperTypeForm(BaseStyledModelForm):
+    class Meta:
+        model = PaperType
+        fields = ['name', 'description']
+
+class ConvenienceForm(BaseStyledModelForm):
+    class Meta:
+        model = Convenience
+        fields = ['name', 'description']
+
+# --- CSV Import Form ---
 class CSVImportForm(forms.Form):
     csv_file = forms.FileField(label="Upload CSV File")
-    model_type = forms.ChoiceField(choices=[
-        ('rental', 'Rental Properties'),
-        ('land', 'Land For Sale'),
-        ('town', 'Towns') # Added town import
-    ])
+    model_type = forms.ChoiceField(
+        choices=[
+            ('', '---------'),
+            ('town', 'Towns'),
+            ('access_type', 'Access Types'),
+            ('paper_type', 'Paper Types'),
+            ('convenience', 'Convenience Types'),
+            ('rental', 'Rental Properties'),
+            ('land', 'Land For Sale'),
+        ],
+        widget=forms.Select(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1'})
+    )

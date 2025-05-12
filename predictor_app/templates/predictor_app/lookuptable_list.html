@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ table_name|default:"Items" }}{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">{{ table_name|default:"Item List" }}</h1>
+    {% if add_url_name %}
+    <a href="{% url add_url_name %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+        Add New {{ table_name|slice:":-1"|default:"Item" }}
+    </a>
+    {% endif %}
+</div>
+<div class="bg-white shadow-md rounded-lg overflow-x-auto">
+    <table class="min-w-full leading-normal">
+        <thead>
+            <tr>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ item.name }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ item.description|default:"-" }}</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm whitespace-nowrap">
+                    {% if edit_url_base %}
+                    <a href="{% url edit_url_base item.pk %}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                    {% endif %}
+                    {% if delete_url_base %}
+                    <a href="{% url delete_url_base item.pk %}" class="text-red-600 hover:text-red-900">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center py-4 text-gray-500">No {{ table_name|lower|default:"items" }} found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

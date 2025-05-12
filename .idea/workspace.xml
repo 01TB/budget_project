@@ -5,12 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="829a40f7-fe63-4ad3-bb7d-6be21074dea4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/landforsale_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static_src/css/input.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/confirm_delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/lookuptable_confirm_delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/lookuptable_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/lookuptable_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/budget_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/budget_project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predictor_app/templates/predictor_app/import_csv.html" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/import_csv.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/conf_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/conf/conf_2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/conf_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/conf/conf_3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/csv/madagascar_land_for_sale.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/csv/madagascar_land_for_sale.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/csv/madagascar_rental_properties.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/csv/madagascar_rental_properties.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/csv/madagascar_towns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/csv/madagascar_towns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/trained_models/rental_model.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/media/trained_models/rental_model.joblib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/management/commands/train_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/management/commands/train_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/ml_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/ml_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/templates/predictor_app/predict_land.html" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/predict_land.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/predictor_app/templates/predictor_app/predict_rental.html" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/templates/predictor_app/predict_rental.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +33,15 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -41,24 +59,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django Server.budget_project.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "master",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.budget_project.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="budget_project" type="Python.DjangoServer" factoryName="Django server">
       <module name="budget_project" />
@@ -103,7 +121,9 @@
       <option name="presentableId" value="Default" />
       <updated>1746902658685</updated>
       <workItem from="1746902686550" duration="13000" />
-      <workItem from="1746902711717" duration="5431000" />
+      <workItem from="1746902711717" duration="5980000" />
+      <workItem from="1746938504735" duration="6404000" />
+      <workItem from="1747023916485" duration="2301000" />
     </task>
     <servers />
   </component>
